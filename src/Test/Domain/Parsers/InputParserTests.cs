@@ -1,7 +1,7 @@
 ﻿using Domain.Helpers;
 using Domain.Models;
-using Domain.Models.Extensions;
 using System;
+using Tests.Helpers;
 using Xunit;
 
 namespace Tests.Domain.Parsers
@@ -13,43 +13,52 @@ namespace Tests.Domain.Parsers
 
         }
 
-        [Theory]
-        [InlineData(1, 1, "E")]
-        [InlineData(3, 2, "N")]
-        [InlineData(0, 3, "W")]
-        public void ShouldParseRobotCoordinates(int x, int y, string orientation)
+        [Fact]
+        public void ShouldParseGivenInput()
         {
             // Arrange
-            var output = Robot.Create(x, y, orientation.GetOrientationFromKeyCode());
+            var givenInput = TestDataHelper.GetCodeChallengeSampleInput();
+
+            var gridInputCoordinates = Coordinates.Create(5, 3);
+
+            var robot1Input = Robot.Create(1, 1, OrientationType.East, "RFRFRFRF");
+            var robot2Input = Robot.Create(3, 2, OrientationType.North, "FRRFLLFFRRFLL");
+            var robot3Input = Robot.Create(0, 3, OrientationType.West, "LLFFFRFLFL");
 
             // Act
-            var result = InputParser.ParseRobotCoordinates($"{x} {y} {orientation}");
+            var map = InputParser.ParseInput(givenInput);
 
             // Assert
-            Assert.True(result.Equals(output));
+            Assert.True(map.Grid.TopRight.Equals(gridInputCoordinates));
+
+            Assert.True(robot1Input.Equals(map.Robots[0]));
+            Assert.True(robot1Input.Commands.Equals(map.Robots[0].Commands));
+
+            Assert.True(robot2Input.Equals(map.Robots[1]));
+            Assert.True(robot2Input.Commands.Equals(map.Robots[1].Commands));
+
+            Assert.True(robot3Input.Equals(map.Robots[2]));
+            Assert.True(robot3Input.Commands.Equals(map.Robots[2].Commands));
         }
 
-        [Theory]
-        [InlineData(1, 1, "A")]
-        [InlineData(3, 2, "J")]
-        [InlineData(0, 3, "O")]
-        public void ShouldThrowExceptionOnWrongRobotCoordinates(int x, int y, string orientation)
+        [Fact]
+        public void ShouldThrowGridException()
         {
             // Arrange
-            var input = $"{x} {y} {orientation}";
+            var givenInput = TestDataHelper.GetCodeChallengeWrongGridCoordinates();
 
             // Assert
-            Assert.Throws<ArgumentException>(() => InputParser.ParseRobotCoordinates(input));
+            Assert.Throws<ArgumentException>(() => InputParser.ParseInput(givenInput));
         }
 
-        [Theory]
-        [InlineData("Wrong")]
-        [InlineData("Tomato 3")]
-        [InlineData("4 Potato 5")]
-        public void ShouldThrowExceptionOnWrongRobotInput(string input)
+        [Fact]
+        public void ShouldThrowRobotException()
         {
+            // Arrange
+            var givenInput = TestDataHelper.GetCodeChallengeWrongRobotCoordinates();
+
             // Assert
-            Assert.Throws<ArgumentException>(() => InputParser.ParseRobotCoordinates(input));
+            Assert.Throws<ArgumentException>(() => InputParser.ParseInput(givenInput));
         }
     }
 }

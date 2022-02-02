@@ -2,9 +2,9 @@
 
 namespace Domain.Models
 {
-    public class CommandResult
+    public class ValidationResult
     {
-        private CommandResult()
+        private ValidationResult()
         {
             Messages = new List<string>();
         }
@@ -12,14 +12,14 @@ namespace Domain.Models
         public bool Success => Messages.Count.Equals(0);
         public List<string> Messages { get; set; }
 
-        public static CommandResult Create()
+        public static ValidationResult Create()
         {
-            return new CommandResult();
+            return new ValidationResult();
         }
 
-        public void AddMessages(IEnumerable<string> messages)
+        public void AddMessage(string message)
         {
-            Messages.AddRange(messages);
+            Messages.Add(message);
         }
     }
 }

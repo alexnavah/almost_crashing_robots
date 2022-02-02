@@ -17,10 +17,18 @@ namespace Domain.Models
                 Orientation = orientation
             };
         }
+
         public static Robot Create(int coordinateX, int coordinateY, OrientationType orientation, bool isLost)
         {
             var robot = Create(coordinateX, coordinateY, orientation);
             robot.IsLost = isLost;
+
+            return robot;
+        }
+        public static Robot Create(int coordinateX, int coordinateY, OrientationType orientation, string commands)
+        {
+            var robot = Create(coordinateX, coordinateY, orientation);
+            robot.Commands = commands;
 
             return robot;
         }

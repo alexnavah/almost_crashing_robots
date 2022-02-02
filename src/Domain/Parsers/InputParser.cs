@@ -1,32 +1,80 @@
 ﻿using Domain.Models;
 using Domain.Models.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Domain.Helpers
 {
     public static class InputParser
     {
-        public static void ParseInput(string input, int maxGridSize = 50, int maxRobotInstructionsLength = 100)
-        {
+        const int CoordinateXIndex = 1;
+        const int CoordinateYIndex = 2;
+        const int OrientationIndex = 3;
+        const int CommandsIndex = 4;
 
+        public static PlanetMap ParseInput(string input)
+        {
+            var gridMatch = Regex.Match(input, GetInputParseRegexForGridInstructions(), RegexOptions.IgnoreCase);
+            var robotMatches = Regex.Matches(input, GetInputParseRegexForRobotInstructions(), RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+            var grid = HandleGridMatch(gridMatch);
+            var robots = HandleRobotsMatches(robotMatches);
+            
+            return PlanetMap.Create(grid, robots);
         }
 
-        public static Robot ParseRobotCoordinates(string input)
+        private static Grid HandleGridMatch(Match match)
         {
-            // Pattern number-whitespace-number-whitespace-orientation separated into groups for easier use later
-            const string robotPattern = @"^(\d*)\s(\d*)\s([NSEW])$";
-
-            var match = Regex.Match(input, robotPattern, RegexOptions.IgnoreCase);
-
-            if (!match.Success || match.Groups.Count != 4)
+            if (!match.Success || match.Groups.Count != 3)
             {
-                throw new ArgumentException("Robot input coordinates and orientation should go by {X value} {Y value} {Orientation [NSEW]} format");
+                throw new ArgumentException("Grid input coordinates should go by {X value} {Y value} format");
             }
 
-            var orientation = match.Groups[3].Value.GetOrientationFromKeyCode();
+            return Grid.Create(match.Groups[CoordinateXIndex].Value.AsInteger(), match.Groups[CoordinateYIndex].Value.AsInteger());
+        }
 
-            return Robot.Create(int.Parse(match.Groups[1].Value), int.Parse(match.Groups[2].Value), orientation);       
+        private static List<Robot> HandleRobotsMatches(MatchCollection matches)
+        {
+            var robots = new List<Robot>();
+            foreach (Match match in matches)
+            {
+                if (!match.Success || match.Groups.Count != 5)
+                {
+                    throw new ArgumentException("Robot input coordinates and orientation should go by {X value} {Y value} {Orientation [NSEW]} format");
+                }
+
+                var robot = Robot.Create(match.Groups[CoordinateXIndex].Value.AsInteger(),
+                    match.Groups[CoordinateYIndex].Value.AsInteger(),
+                    match.Groups[OrientationIndex].Value.GetOrientationFromKeyCode(),
+                    match.Groups[CommandsIndex].Value);
+
+                robots.Add(robot);
+            }
+
+            return robots;
+        }
+
+        private static string GetInputParseRegexForRobotInstructions()
+        {
+            // \d matches a digit(equivalent to[0 - 9])
+            // * matches the previous token between zero and unlimited times, as many times as possible, giving back as needed (greedy)
+            // \s matches any whitespace character(equivalent to[\r\n\t\f\v])
+            // + matches the previous token between one and unlimited times, as many times as possible, giving back as needed (greedy)
+            // [NSEW] matches a single character in the list NSEW
+            // [RFL] matches a single character in the list RFL(case sensitive)
+
+            return @"(\d*)\s(\d*)\s([NSEW])\s+([RFL]+)";
+        }
+
+        private static string GetInputParseRegexForGridInstructions()
+        {
+            // \d matches a digit(equivalent to[0 - 9])
+            // * matches the previous token between zero and unlimited times, as many times as possible, giving back as needed (greedy)
+            // \s matches any whitespace character(equivalent to[\r\n\t\f\v])
+            // + matches the previous token between one and unlimited times, as many times as possible, giving back as needed (greedy)
+
+            return @"(\d*)\s(\d*)\r\n";
         }
     }
 }

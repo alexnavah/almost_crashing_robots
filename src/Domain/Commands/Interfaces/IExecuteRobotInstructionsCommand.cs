@@ -2,7 +2,7 @@
 
 namespace Domain.Commands.Interfaces
 {
-    public interface IRobotCommand
+    public interface IExecuteRobotInstructionsCommand
     {
         public CommandResult Execute(Robot robot, Grid grid);
     }

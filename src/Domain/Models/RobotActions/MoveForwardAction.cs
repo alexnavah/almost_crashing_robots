@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Models
 {
-    public class ForwardAction : IRobotAction
+    public class MoveForwardAction : IRobotAction
     {
         public void Execute()
         {
