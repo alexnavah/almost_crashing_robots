@@ -17,7 +17,7 @@ namespace Tests.Domain.Parsers
         public void ShouldParseGivenInput()
         {
             // Arrange
-            var givenInput = TestDataHelper.GetCodeChallengeSampleInput();
+            var givenInput = TestDataHelper.GivenCodeChallengeSampleInput();
 
             var gridInputCoordinates = Coordinates.Create(5, 3);
 
@@ -45,7 +45,7 @@ namespace Tests.Domain.Parsers
         public void ShouldThrowGridException()
         {
             // Arrange
-            var givenInput = TestDataHelper.GetCodeChallengeWrongGridCoordinates();
+            var givenInput = TestDataHelper.GivenCodeChallengeWrongGridCoordinates();
 
             // Assert
             Assert.Throws<ArgumentException>(() => InputParser.ParseInput(givenInput));
@@ -55,7 +55,7 @@ namespace Tests.Domain.Parsers
         public void ShouldThrowRobotException()
         {
             // Arrange
-            var givenInput = TestDataHelper.GetCodeChallengeWrongRobotCoordinates();
+            var givenInput = TestDataHelper.GivenCodeChallengeWrongRobotCoordinates();
 
             // Assert
             Assert.Throws<ArgumentException>(() => InputParser.ParseInput(givenInput));

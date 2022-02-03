@@ -3,7 +3,7 @@ using Domain.Models.Interfaces;
 
 namespace Domain.Models
 {
-    public class RotateLeftAction : IRobotMovementAction
+    public class RotateLeftAction : IRobotRotationAction
     {
         private static RotateLeftAction Current { get; set; }
 
@@ -11,7 +11,7 @@ namespace Domain.Models
 
         public static RotateLeftAction Instance => Current ??= new RotateLeftAction();
 
-        public void Execute(Grid grid, Robot robot)
+        public void Execute(Robot robot)
         {
             robot.RotateLeft();
         }

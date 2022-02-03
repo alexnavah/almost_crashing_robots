@@ -4,6 +4,11 @@ namespace Domain.Models
 {
     public class Robot : IEquatable<Robot>
     {
+        private Robot()
+        {
+            Commands = string.Empty;
+        }
+
         public Coordinates Coordinates { get; set; }
         public OrientationType Orientation { get; set; }
         public string Commands { get; set; }

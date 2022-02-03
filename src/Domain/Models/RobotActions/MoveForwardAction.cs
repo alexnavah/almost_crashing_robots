@@ -3,7 +3,7 @@ using Domain.Models.Interfaces;
 
 namespace Domain.Models
 {
-    public class MoveForwardAction : IRobotMovementAction
+    public class MoveForwardAction : RobotMovementAction
     {
         private static MoveForwardAction Current { get; set; }
 
@@ -11,24 +11,12 @@ namespace Domain.Models
 
         public static MoveForwardAction Instance => Current ??= new MoveForwardAction();
 
-        public void Execute(Grid grid, Robot robot)
+        public override void Execute(Grid grid, Robot robot)
         {
             var nextCoordinates = robot.GetForwardCoordinates();
             var tileStatus = grid.CheckTileStatus(nextCoordinates);
 
-            switch (tileStatus)
-            {
-                case TileStatusType.Ignore:
-                    break;
-                case TileStatusType.Lost:
-                    robot.FlagAsLost();
-                    grid.AddLostRobotTile(nextCoordinates);
-                    break;
-                case TileStatusType.Move:
-                    grid.AddSafetile(nextCoordinates);
-                    robot.MoveToCoordinates(nextCoordinates);
-                    break;
-            }
+            HandleNextTileStatus(tileStatus, grid, robot, nextCoordinates);
         }
     }
 }

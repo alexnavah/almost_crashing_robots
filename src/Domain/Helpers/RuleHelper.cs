@@ -9,7 +9,7 @@ namespace Domain.Helpers
         {
             return new List<IValidationRule>
             {
-                MaxGridSizeRule.Instance,
+                GridSizeRule.Instance,
                 MaxRobotInstructionsRule.Instance
             };
         }
