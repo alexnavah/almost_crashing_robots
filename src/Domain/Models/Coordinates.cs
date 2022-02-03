@@ -4,6 +4,7 @@ namespace Domain.Models
 {
     public class Coordinates : IEquatable<Coordinates>
     {
+        private static Coordinates Origin;
         public int X { get; set; }
         public int Y { get; set; }
 
@@ -16,10 +17,9 @@ namespace Domain.Models
             };
         }
 
-        public static Coordinates GetZeroZero()
-        {
-            return Create(0, 0);
-        }
+        public static Coordinates operator +(Coordinates a, Coordinates b) => Create(a.X + b.X, a.Y + b.Y);
+
+        public static Coordinates ZeroZero => Origin ??= Create(0, 0);
 
         public bool Equals(Coordinates other)
         {

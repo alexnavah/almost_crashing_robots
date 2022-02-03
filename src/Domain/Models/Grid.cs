@@ -6,12 +6,14 @@ namespace Domain.Models
     {
         private Grid()
         {
-            LostRobotMarks = new List<Coordinates>();
+            LostRobotTiles = new List<Coordinates>();
+            SafeTiles = new List<Coordinates>();
         }
 
-        public Coordinates BottomLeft => Coordinates.GetZeroZero();
+        public Coordinates BottomLeft => Coordinates.ZeroZero;
         public Coordinates TopRight { get; set; }
-        public List<Coordinates> LostRobotMarks { get; set; }
+        public List<Coordinates> LostRobotTiles { get; set; }
+        public List<Coordinates> SafeTiles { get; set; }
 
         public static Grid Create(int x, int y)
         {

@@ -7,10 +7,7 @@ namespace Domain.Models
     {
         private static RotateLeftAction Current { get; set; }
 
-        public RotateLeftAction()
-        {
-
-        }
+        private RotateLeftAction() { }
 
         public static RotateLeftAction Instance => Current ??= new RotateLeftAction();
 

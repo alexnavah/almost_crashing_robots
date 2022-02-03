@@ -6,8 +6,10 @@ Robots walking on a grid based on instructiones given
 - Return back in time on going out of grid
 - Configurable max map size and commands length
 - Add new input rules
+- Avoid robot move validations saving already explored tiles
+- Validation of robot commands input 'FRFRFRF'
 
-# How to implement new robot instruction
+# How to extend robot instructions
 
 There is an interface `IRobotAction` you can use to further implement new robots instruction, as follows in this example:
 
@@ -21,13 +23,28 @@ namespace Domain.Models
     {
         public void Execute()
         {
-            throw new NotImplementedException();
+            var nextCoordinates = robot.GetBackwardCoordinates();
+            var tileStatus = grid.CheckTileStatus(nextCoordinates);
+
+            switch (tileStatus)
+            {
+                case TileStatusType.Ignore:
+                    break;
+                case TileStatusType.Lost:
+                    robot.FlagAsLost();
+                    grid.AddLostRobotTile(nextCoordinates);
+                    break;
+                case TileStatusType.Move:
+                    robot.MoveToCoordinates(nextCoordinates);
+                    break;
+            }
         }
     }
 }
 ```
 
 # Tests
+
 The solution contains unit tests.
 Test libraries used:
 - [xUnit](https://xunit.net/)

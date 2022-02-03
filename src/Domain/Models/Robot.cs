@@ -9,6 +9,8 @@ namespace Domain.Models
         public string Commands { get; set; }
         public bool IsLost { get; set; }
 
+        public int Steps => 1;
+
         public static Robot Create(int coordinateX, int coordinateY, OrientationType orientation)
         {
             return new Robot
