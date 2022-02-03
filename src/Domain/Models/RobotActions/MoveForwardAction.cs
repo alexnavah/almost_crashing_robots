@@ -1,13 +1,12 @@
 ﻿using Domain.Models.Interfaces;
-using System;
 
 namespace Domain.Models
 {
-    public class MoveForwardAction : IRobotAction
+    public class MoveForwardAction : IRobotMovementAction
     {
-        public void Execute()
+        public void Execute(Grid grid, Robot robot)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

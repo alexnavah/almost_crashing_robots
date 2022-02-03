@@ -1,13 +1,22 @@
-﻿using Domain.Models.Interfaces;
-using System;
+﻿using Domain.Models.Extensions;
+using Domain.Models.Interfaces;
 
 namespace Domain.Models
 {
-    public class RotateLeftAction : IRobotAction
+    public class RotateLeftAction : IRobotMovementAction
     {
-        public void Execute()
+        private static RotateLeftAction Current { get; set; }
+
+        public RotateLeftAction()
         {
-            throw new NotImplementedException();
+
+        }
+
+        public static RotateLeftAction Instance => Current ??= new RotateLeftAction();
+
+        public void Execute(Grid grid, Robot robot)
+        {
+            robot.RotateLeft();
         }
     }
 }
