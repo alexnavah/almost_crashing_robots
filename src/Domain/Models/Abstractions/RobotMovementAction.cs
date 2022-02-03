@@ -24,7 +24,7 @@ namespace Domain.Models.Interfaces
         private void HandleLostState(Grid grid, Robot robot, Coordinates nextCoordinates)
         {
             robot.FlagAsLost();
-            grid.AddLostRobotTile(nextCoordinates);
+            grid.AddLostRobotVector(DirectionVector.Create(robot.Coordinates, robot.Orientation));
         }
         private void HandleMoveState(Grid grid, Robot robot, Coordinates nextCoordinates)
         {

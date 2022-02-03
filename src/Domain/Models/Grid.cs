@@ -6,13 +6,13 @@ namespace Domain.Models
     {
         private Grid()
         {
-            LostRobotTiles = new List<Coordinates>();
+            LostRobotVectors = new List<DirectionVector>();
             SafeTiles = new List<Coordinates>();
         }
 
         public Coordinates BottomLeft => Coordinates.ZeroZero;
         public Coordinates TopRight { get; set; }
-        public List<Coordinates> LostRobotTiles { get; set; }
+        public List<DirectionVector> LostRobotVectors { get; set; }
         public List<Coordinates> SafeTiles { get; set; }
 
         public static Grid Create(int x, int y)

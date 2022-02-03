@@ -4,13 +4,13 @@ namespace Domain.Models.Extensions
 {
     public static class GridExtensions
     {
-        public static TileStatusType CheckTileStatus(this Grid grid, Coordinates coordinates)
+        public static TileStatusType CheckTileStatus(this Grid grid, Coordinates nextCoordinates)
         {
-            if (grid.LostRobotTiles.Any(tile => tile.Equals(coordinates)))
+            if (grid.LostRobotVectors.Any(tile => tile.Equals(nextCoordinates)))
             {
                 return TileStatusType.Ignore;
             }
-            else if (!grid.AreCoordinatesOutside(coordinates))
+            else if (!grid.AreCoordinatesOutside(nextCoordinates))
             {
                 return TileStatusType.Lost;
             }
@@ -26,9 +26,9 @@ namespace Domain.Models.Extensions
             return false;
         }
 
-        public static void AddLostRobotTile(this Grid grid, Coordinates coordinates)
+        public static void AddLostRobotVector(this Grid grid, DirectionVector vector)
         {
-            grid.LostRobotTiles.Add(coordinates);
+            grid.LostRobotVectors.Add(vector);
         }
         public static void AddSafetile(this Grid grid, Coordinates coordinates)
         {
