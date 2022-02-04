@@ -4,7 +4,7 @@ namespace Domain.Models
 {
     public class CommandResult
     {
-        private CommandResult()
+        public CommandResult()
         {
             Messages = new List<string>();
         }

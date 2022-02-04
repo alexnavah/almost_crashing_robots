@@ -1,15 +1,18 @@
-﻿namespace Domain.Models.Extensions
+﻿using Domain.Models.Interfaces;
+using System.Collections.Generic;
+
+namespace Domain.Models.Extensions
 {
     public static class RobotExtensions
     {
         public static void RotateLeft(this Robot robot)
         {
-            robot.Orientation.RotateCounterclockwise();
+            robot.SetOrientation(robot.Orientation.RotateCounterclockwise());
         }
 
         public static void RotateRight(this Robot robot)
         {
-            robot.Orientation.RotateClockwise();
+            robot.SetOrientation(robot.Orientation.RotateClockwise());
         }
 
         public static Coordinates GetForwardCoordinates(this Robot robot)
@@ -34,14 +37,19 @@
             return robot.Coordinates + Coordinates.Create(xAxisTiles, yAxisTiles);
         }
 
-        public static void FlagAsLost(this Robot robot)
+        public static Queue<IRobotInstruction> GetCommands(this Robot robot)
         {
-            robot.IsLost = true;
+            var commandsQueue = new Queue<IRobotInstruction>();
+
+            foreach(var command in robot.Commands)
+            {
+                var robotCommandType = command.ToString().GetRobotCommandFromKeyCode();
+                var robotCommand = robotCommandType.GetRobotCommandInstance();
+                commandsQueue.Enqueue(robotCommand);
+            }
+
+            return commandsQueue;
         }
 
-        public static void MoveToCoordinates(this Robot robot, Coordinates coordinates)
-        {
-            robot.Coordinates = coordinates;
-        }
     }
 }

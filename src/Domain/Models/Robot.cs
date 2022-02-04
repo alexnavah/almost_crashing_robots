@@ -40,6 +40,21 @@ namespace Domain.Models
             return robot;
         }
 
+        public void SetOrientation(OrientationType orientation)
+        {
+            Orientation = orientation;
+        }
+
+        public void FlagAsLost()
+        {
+            IsLost = true;
+        }
+
+        public void MoveToCoordinates(Coordinates coordinates)
+        {
+            Coordinates = coordinates;
+        }
+
         public bool Equals(Robot other)
         {
             return Coordinates.Equals(other.Coordinates)

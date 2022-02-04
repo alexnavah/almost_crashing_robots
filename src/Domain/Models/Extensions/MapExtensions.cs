@@ -4,13 +4,13 @@ namespace Domain.Models.Extensions
 {
     public static class MapExtensions
     {
-        public static TileStatusType CheckTileStatus(this Map map, Coordinates nextCoordinates)
+        public static TileStatusType CheckTileStatus(this Map map, Coordinates nextCoordinates, OrientationType orientation)
         {
-            if (map.LostRobotVectors.Any(tile => tile.Equals(nextCoordinates)))
+            if (map.LostRobotVectors.Any(tile => tile.Equals(DirectionVector.Create(nextCoordinates, orientation))))
             {
                 return TileStatusType.Ignore;
             }
-            else if (!map.AreCoordinatesOutside(nextCoordinates))
+            else if (map.AreCoordinatesOutside(nextCoordinates))
             {
                 return TileStatusType.Lost;
             }

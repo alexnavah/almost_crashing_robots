@@ -3,8 +3,8 @@
     public enum OrientationType
     {
         North,
-        South,
         East,
+        South,
         West
     }
 }

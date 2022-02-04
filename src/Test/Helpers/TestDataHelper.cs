@@ -20,6 +20,11 @@ namespace Tests.Helpers
             return "5 3\r\n1 2 E\r\nRFRFRFRF\r\nE 2 N\r\nFRRFLLFFRRFLL\r\n0 3 W\r\nLLFFFRFLFL";
         }
 
+        public static Mission GivenSampleMissionConfiguration()
+        {
+            return Mission.Create(GivenSampleMapConfiguration(), GivenSampleRobotsConfiguration());
+        }
+
         public static Mission GivenValidMissionConfiguration()
         {
             return Mission.Create(GivenValidMapConfiguration(), GivenValidRobotsConfiguration());
@@ -34,8 +39,21 @@ namespace Tests.Helpers
                 Robot.Create(0, 3, OrientationType.West)
             };
         }
+        private static List<Robot> GivenSampleRobotsConfiguration()
+        {
+            return new List<Robot>
+            {
+                Robot.Create(1, 1, OrientationType.East, "RFRFRFRF"),
+                Robot.Create(3, 2, OrientationType.North, "FRRFLLFFRRFLL"),
+                Robot.Create(0, 3, OrientationType.West, "LLFFFRFLFL")
+            };
+        }
 
         private static Map GivenValidMapConfiguration()
+        {
+            return Map.Create(8, 4);
+        }
+        private static Map GivenSampleMapConfiguration()
         {
             return Map.Create(5, 3);
         }
