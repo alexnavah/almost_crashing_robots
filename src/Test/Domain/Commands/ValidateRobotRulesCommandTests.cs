@@ -7,22 +7,22 @@ namespace Test.Domain.Commands
 {
     public class ValidateRobotRulesCommandTests
     {
-        private readonly ValidatePlanetMapRulesCommand _validatePlanetMapRulesCommand;
+        private readonly ValidateMissionRulesCommand _validateMissionRulesCommand;
 
         public ValidateRobotRulesCommandTests()
         {
             // TODO: Dependency injection
-            _validatePlanetMapRulesCommand = new ValidatePlanetMapRulesCommand();
+            _validateMissionRulesCommand = new ValidateMissionRulesCommand();
         }
 
         [Fact]
         public void ShouldValidateInputWithSuccuessResult()
         {
             // Arrange
-            var validMap = TestDataHelper.GivenValidMapConfiguration();
+            var validMission = TestDataHelper.GivenValidMissionConfiguration();
 
             // Act
-            var commandResult = _validatePlanetMapRulesCommand.Execute(validMap);
+            var commandResult = _validateMissionRulesCommand.Execute(validMission);
 
             // Assert
             Assert.True(commandResult.Success);
@@ -34,11 +34,11 @@ namespace Test.Domain.Commands
         public void ShouldFailOnMapSizeInput(int xCoordinate)
         {
             // Arrange
-            var map = TestDataHelper.GivenValidMapConfiguration();
-            map.Grid.TopRight.X = xCoordinate;
+            var mission = TestDataHelper.GivenValidMissionConfiguration();
+            mission.Map.TopRight.X = xCoordinate;
 
             // Act
-            var commandResult = _validatePlanetMapRulesCommand.Execute(map);
+            var commandResult = _validateMissionRulesCommand.Execute(mission);
 
             // Assert
             Assert.False(commandResult.Success);
@@ -49,11 +49,11 @@ namespace Test.Domain.Commands
         public void ShouldFailOnRobotInstructionsLengthInput(char instruction, int times)
         {
             // Arrange
-            var map = TestDataHelper.GivenValidMapConfiguration();
-            map.Robots.First().Commands = new string(instruction, times);
+            var mission = TestDataHelper.GivenValidMissionConfiguration();
+            mission.Robots.First().Commands = new string(instruction, times);
 
             // Act
-            var commandResult = _validatePlanetMapRulesCommand.Execute(map);
+            var commandResult = _validateMissionRulesCommand.Execute(mission);
 
             // Assert
             Assert.False(commandResult.Success);

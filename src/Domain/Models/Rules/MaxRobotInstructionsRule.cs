@@ -1,4 +1,6 @@
-﻿namespace Domain.Models.Validations
+﻿using Domain.Models.Interfaces;
+
+namespace Domain.Models.Rules
 {
     public class MaxRobotInstructionsRule : IValidationRule
     {
@@ -13,7 +15,7 @@
 
         public static MaxRobotInstructionsRule Instance => Current ??= new MaxRobotInstructionsRule();
 
-        public void Run(PlanetMap map, ValidationResult validationResult)
+        public void Run(Mission map, ValidationResult validationResult)
         {
             foreach (var robot in map.Robots)
             {

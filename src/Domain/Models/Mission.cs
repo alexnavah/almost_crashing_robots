@@ -2,16 +2,16 @@
 
 namespace Domain.Models
 {
-    public class PlanetMap
+    public class Mission
     {
-        public Grid Grid { get; set; }
+        public Map Map { get; set; }
         public List<Robot> Robots { get; set; }
 
-        public static PlanetMap Create(Grid grid, List<Robot> robots)
+        public static Mission Create(Map map, List<Robot> robots)
         {
-            return new PlanetMap
+            return new Mission
             {
-                Grid = grid,
+                Map = map,
                 Robots = robots
             };
         }

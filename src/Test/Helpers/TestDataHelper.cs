@@ -1,5 +1,4 @@
 ﻿using Domain.Models;
-using System;
 using System.Collections.Generic;
 
 namespace Tests.Helpers
@@ -11,7 +10,7 @@ namespace Tests.Helpers
             return "5 3\r\n1 1 E\r\nRFRFRFRF\r\n3 2 N\r\nFRRFLLFFRRFLL\r\n0 3 W\r\nLLFFFRFLFL";
         }
 
-        public static string GivenCodeChallengeWrongGridCoordinates()
+        public static string GivenCodeChallengeWrongMapCoordinates()
         {
             return "5 A\r\n1 1 E\r\nRFRFRFRF\r\n3 2 N\r\nFRRFLLFFRRFLL\r\n0 3 W\r\nLLFFFRFLFL";
         }
@@ -21,9 +20,9 @@ namespace Tests.Helpers
             return "5 3\r\n1 2 E\r\nRFRFRFRF\r\nE 2 N\r\nFRRFLLFFRRFLL\r\n0 3 W\r\nLLFFFRFLFL";
         }
 
-        public static PlanetMap GivenValidMapConfiguration()
+        public static Mission GivenValidMissionConfiguration()
         {
-            return PlanetMap.Create(GivenValidGridConfiguration(), GivenValidRobotsConfiguration());
+            return Mission.Create(GivenValidMapConfiguration(), GivenValidRobotsConfiguration());
         }
 
         private static List<Robot> GivenValidRobotsConfiguration()
@@ -36,9 +35,9 @@ namespace Tests.Helpers
             };
         }
 
-        private static Grid GivenValidGridConfiguration()
+        private static Map GivenValidMapConfiguration()
         {
-            return Grid.Create(5, 3);
+            return Map.Create(5, 3);
         }
     }
 }

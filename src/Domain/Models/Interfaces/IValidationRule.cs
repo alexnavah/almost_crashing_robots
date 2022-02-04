@@ -1,7 +1,7 @@
-﻿namespace Domain.Models.Validations
+﻿namespace Domain.Models.Interfaces
 {
     public interface IValidationRule
     {
-        public void Run(PlanetMap map, ValidationResult validationResult);
+        public void Run(Mission map, ValidationResult validationResult);
     }
 }

@@ -1,5 +1,5 @@
-﻿using Domain.Models.Extensions;
-using Domain.Models.Interfaces;
+﻿using Domain.Models.Abstractions;
+using Domain.Models.Extensions;
 
 namespace Domain.Models
 {
@@ -11,7 +11,7 @@ namespace Domain.Models
 
         public static MoveForwardAction Instance => Current ??= new MoveForwardAction();
 
-        public override void Execute(Grid grid, Robot robot)
+        public override void Execute(Map grid, Robot robot)
         {
             var nextCoordinates = robot.GetForwardCoordinates();
             var tileStatus = grid.CheckTileStatus(nextCoordinates);

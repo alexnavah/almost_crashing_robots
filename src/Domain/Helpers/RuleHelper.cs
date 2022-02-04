@@ -1,4 +1,5 @@
-﻿using Domain.Models.Validations;
+﻿using Domain.Models.Interfaces;
+using Domain.Models.Rules;
 using System.Collections.Generic;
 
 namespace Domain.Helpers
@@ -9,8 +10,9 @@ namespace Domain.Helpers
         {
             return new List<IValidationRule>
             {
-                GridSizeRule.Instance,
-                MaxRobotInstructionsRule.Instance
+                MapSizeRule.Instance,
+                MaxRobotInstructionsRule.Instance,
+                RobotInstructionRule.Instance
             };
         }
     }

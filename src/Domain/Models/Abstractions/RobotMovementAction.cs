@@ -1,34 +1,34 @@
 ﻿using Domain.Models.Extensions;
 
-namespace Domain.Models.Interfaces
+namespace Domain.Models.Abstractions
 {
     public abstract class RobotMovementAction
     {
-        public abstract void Execute(Grid grid, Robot robot);
+        public abstract void Execute(Map map, Robot robot);
 
-        public void HandleNextTileStatus(TileStatusType tileStatus, Grid grid, Robot robot, Coordinates nextCoordinates)
+        public void HandleNextTileStatus(TileStatusType tileStatus, Map map, Robot robot, Coordinates nextCoordinates)
         {
             switch (tileStatus)
             {
                 case TileStatusType.Ignore:
                     break;
                 case TileStatusType.Lost:
-                    HandleLostState(grid, robot, nextCoordinates);
+                    HandleLostState(map, robot);
                     break;
                 case TileStatusType.Move:
-                    HandleMoveState(grid, robot, nextCoordinates);
+                    HandleMoveState(map, robot, nextCoordinates);
                     break;
             }
         }
 
-        private void HandleLostState(Grid grid, Robot robot, Coordinates nextCoordinates)
+        private void HandleLostState(Map map, Robot robot)
         {
             robot.FlagAsLost();
-            grid.AddLostRobotVector(DirectionVector.Create(robot.Coordinates, robot.Orientation));
+            map.AddLostRobotVector(DirectionVector.Create(robot.Coordinates, robot.Orientation));
         }
-        private void HandleMoveState(Grid grid, Robot robot, Coordinates nextCoordinates)
+        private void HandleMoveState(Map map, Robot robot, Coordinates nextCoordinates)
         {
-            grid.AddSafetile(nextCoordinates);
+            map.AddSafetile(nextCoordinates);
             robot.MoveToCoordinates(nextCoordinates);
         }
     }

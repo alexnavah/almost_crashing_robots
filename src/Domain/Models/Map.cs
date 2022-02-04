@@ -2,9 +2,9 @@
 
 namespace Domain.Models
 {
-    public class Grid
+    public class Map
     {
-        private Grid()
+        private Map()
         {
             LostRobotVectors = new List<DirectionVector>();
             SafeTiles = new List<Coordinates>();
@@ -15,9 +15,9 @@ namespace Domain.Models
         public List<DirectionVector> LostRobotVectors { get; set; }
         public List<Coordinates> SafeTiles { get; set; }
 
-        public static Grid Create(int x, int y)
+        public static Map Create(int x, int y)
         {
-            return new Grid
+            return new Map
             {
                 TopRight = Coordinates.Create(x, y)
             };

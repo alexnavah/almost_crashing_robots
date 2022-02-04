@@ -13,7 +13,7 @@ namespace Domain.Helpers
         const int OrientationIndex = 3;
         const int CommandsIndex = 4;
 
-        public static PlanetMap ParseInput(string input)
+        public static Mission ParseInput(string input)
         {
             var gridMatch = Regex.Match(input, GetInputParseRegexForGridInstructions(), RegexOptions.IgnoreCase);
             var robotMatches = Regex.Matches(input, GetInputParseRegexForRobotInstructions(), RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -21,17 +21,17 @@ namespace Domain.Helpers
             var grid = HandleGridMatch(gridMatch);
             var robots = HandleRobotsMatches(robotMatches);
             
-            return PlanetMap.Create(grid, robots);
+            return Mission.Create(grid, robots);
         }
 
-        private static Grid HandleGridMatch(Match match)
+        private static Map HandleGridMatch(Match match)
         {
             if (!match.Success || match.Groups.Count != 3)
             {
                 throw new ArgumentException("Grid input coordinates should go by {X value} {Y value} format");
             }
 
-            return Grid.Create(match.Groups[CoordinateXIndex].Value.AsInteger(), match.Groups[CoordinateYIndex].Value.AsInteger());
+            return Map.Create(match.Groups[CoordinateXIndex].Value.AsInteger(), match.Groups[CoordinateYIndex].Value.AsInteger());
         }
 
         private static List<Robot> HandleRobotsMatches(MatchCollection matches)

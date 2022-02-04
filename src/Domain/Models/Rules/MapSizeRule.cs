@@ -1,21 +1,23 @@
-﻿namespace Domain.Models.Validations
+﻿using Domain.Models.Interfaces;
+
+namespace Domain.Models.Rules
 {
-    public class GridSizeRule : IValidationRule
+    public class MapSizeRule : IValidationRule
     {
         const int MaxGridSize = 100;
 
-        private static GridSizeRule Current { get; set; }
+        private static MapSizeRule Current { get; set; }
 
-        private GridSizeRule()
+        private MapSizeRule()
         {
 
         }
 
-        public static GridSizeRule Instance => Current ??= new GridSizeRule();
+        public static MapSizeRule Instance => Current ??= new MapSizeRule();
 
-        public void Run(PlanetMap map, ValidationResult validationResult)
+        public void Run(Mission map, ValidationResult validationResult)
         {
-            var grid = map.Grid;
+            var grid = map.Map;
 
             if (grid.TopRight.X > MaxGridSize || grid.TopRight.X < grid.BottomLeft.X)
             {

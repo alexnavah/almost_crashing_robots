@@ -78,12 +78,12 @@ word "LOST" should be printed after the position and orientation.
 
 # Possible improvements to be done
 
-- Move backwards
-- Return back in time on going out of grid
-- Configurable max map size and commands length
-- Avoid robot move validations saving already explored tiles
-- Validation of robot commands input 'FRFRFRF'
-- Better command result messages
+* Move backwards
+* Return back in time on going out of grid
+* Configurable max map size and commands length
+* Avoid robot move validations saving already explored tiles
+* Validation of robot commands input 'FRFRFRF'
+* Better command result messages
 
 # How to extend robot instructions
 

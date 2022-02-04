@@ -5,7 +5,7 @@ namespace Domain.Commands
 {
     public class ExecuteRobotInstructionsCommand : IExecuteRobotInstructionsCommand
     {
-        public CommandResult Execute(Robot robot, Grid grid)
+        public CommandResult Execute(Robot robot, Map map)
         {
             throw new System.NotImplementedException();
         }

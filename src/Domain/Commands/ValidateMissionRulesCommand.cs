@@ -4,14 +4,14 @@ using Domain.Models;
 
 namespace Domain.Commands
 {
-    public class ValidatePlanetMapRulesCommand : IValidatePlanetMapRulesCommandCommand
+    public class ValidateMissionRulesCommand : IValidateMissionRulesCommand
     {
-        public ValidatePlanetMapRulesCommand()
+        public ValidateMissionRulesCommand()
         {
 
         }
 
-        public CommandResult Execute(PlanetMap map)
+        public CommandResult Execute(Mission map)
         {
             var commandResult = CommandResult.Create();
             var validationResult = ValidationResult.Create();

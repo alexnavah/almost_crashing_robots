@@ -19,7 +19,7 @@ namespace Tests.Domain.Parsers
             // Arrange
             var givenInput = TestDataHelper.GivenCodeChallengeSampleInput();
 
-            var gridInputCoordinates = Coordinates.Create(5, 3);
+            var mapInputCoordinates = Coordinates.Create(5, 3);
 
             var robot1Input = Robot.Create(1, 1, OrientationType.East, "RFRFRFRF");
             var robot2Input = Robot.Create(3, 2, OrientationType.North, "FRRFLLFFRRFLL");
@@ -29,7 +29,7 @@ namespace Tests.Domain.Parsers
             var map = InputParser.ParseInput(givenInput);
 
             // Assert
-            Assert.True(map.Grid.TopRight.Equals(gridInputCoordinates));
+            Assert.True(map.Map.TopRight.Equals(mapInputCoordinates));
 
             Assert.True(robot1Input.Equals(map.Robots[0]));
             Assert.True(robot1Input.Commands.Equals(map.Robots[0].Commands));
@@ -42,10 +42,10 @@ namespace Tests.Domain.Parsers
         }
 
         [Fact]
-        public void ShouldThrowGridException()
+        public void ShouldThrowMapException()
         {
             // Arrange
-            var givenInput = TestDataHelper.GivenCodeChallengeWrongGridCoordinates();
+            var givenInput = TestDataHelper.GivenCodeChallengeWrongMapCoordinates();
 
             // Assert
             Assert.Throws<ArgumentException>(() => InputParser.ParseInput(givenInput));
