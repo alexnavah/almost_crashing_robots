@@ -14,7 +14,7 @@ namespace Domain.Models
         public void Execute(Mission mission, Robot robot)
         {
             var nextCoordinates = robot.GetForwardCoordinates();
-            var tileStatus = mission.Map.CheckTileStatus(nextCoordinates, robot.Orientation);
+            var tileStatus = mission.Map.CheckTileStatus(robot, nextCoordinates);
 
             mission.HandleNextTileStatus(tileStatus, robot, nextCoordinates);
         }

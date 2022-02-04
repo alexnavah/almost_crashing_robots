@@ -4,9 +4,9 @@ namespace Domain.Models.Extensions
 {
     public static class MapExtensions
     {
-        public static TileStatusType CheckTileStatus(this Map map, Coordinates nextCoordinates, OrientationType orientation)
+        public static TileStatusType CheckTileStatus(this Map map, Robot robot, Coordinates nextCoordinates)
         {
-            if (map.LostRobotVectors.Any(tile => tile.Equals(DirectionVector.Create(nextCoordinates, orientation))))
+            if (map.LostRobotVectors.Any(tile => tile.Equals(DirectionVector.Create(robot.Coordinates, robot.Orientation))))
             {
                 return TileStatusType.Ignore;
             }

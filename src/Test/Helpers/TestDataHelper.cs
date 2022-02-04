@@ -30,6 +30,11 @@ namespace Tests.Helpers
             return Mission.Create(GivenValidMapConfiguration(), GivenValidRobotsConfiguration());
         }
 
+        public static Mission GivenValidMissionWithRobotsFollowingSamePath()
+        {
+            return Mission.Create(GivenSampleMapConfiguration(), GivenRobotsWithSamePathConfiguration());
+        }
+
         private static List<Robot> GivenValidRobotsConfiguration()
         {
             return new List<Robot>
@@ -39,6 +44,7 @@ namespace Tests.Helpers
                 Robot.Create(0, 3, OrientationType.West)
             };
         }
+
         private static List<Robot> GivenSampleRobotsConfiguration()
         {
             return new List<Robot>
@@ -46,6 +52,15 @@ namespace Tests.Helpers
                 Robot.Create(1, 1, OrientationType.East, "RFRFRFRF"),
                 Robot.Create(3, 2, OrientationType.North, "FRRFLLFFRRFLL"),
                 Robot.Create(0, 3, OrientationType.West, "LLFFFRFLFL")
+            };
+        }
+        private static List<Robot> GivenRobotsWithSamePathConfiguration()
+        {
+            return new List<Robot>
+            {
+                Robot.Create(3, 2, OrientationType.North, "FRRFLLFFRRFLL"),
+                Robot.Create(3, 2, OrientationType.North, "FRRFLLFFRRFLL"),
+                Robot.Create(3, 2, OrientationType.North, "FRRFLLFFRRFLL")
             };
         }
 
