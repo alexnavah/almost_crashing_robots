@@ -4,18 +4,15 @@ using Domain.Models;
 
 namespace Domain.Commands
 {
+    /// <inheritdoc cref="IValidateMissionCommand"/>
     public class ValidateMissionCommand : IValidateMissionCommand
     {
-        public ValidateMissionCommand()
-        {
-
-        }
-
+        /// <inheritdoc cref="IValidateMissionCommand.Execute(Mission)"/>
         public CommandResult Execute(Mission mission)
         {
             var commandResult = CommandResult.Create();
             var validationResult = ValidationResult.Create();
-            var rules = RuleHelper.GetValidationRules();
+            var rules = ValidationHelper.GetValidations();
 
             foreach (var rule in rules)
             {

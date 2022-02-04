@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Domain.Helpers
 {
-    public static class RuleHelper
+    public static class ValidationHelper
     {
-        public static IEnumerable<IValidation> GetValidationRules()
+        public static IEnumerable<IValidation> GetValidations()
         {
             return new List<IValidation>
             {

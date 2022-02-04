@@ -13,6 +13,11 @@ namespace Domain.Helpers
         const int OrientationIndex = 3;
         const int CommandsIndex = 4;
 
+        /// <summary>
+        /// Parses map and robots user input, validating string format
+        /// </summary>
+        /// <param name="input">The user input</param>
+        /// <returns><see cref="Mission"/> object</returns>
         public static Mission ParseInput(string input)
         {
             var mapMatch = Regex.Match(input, GetInputParseRegexForMapInstructions(), RegexOptions.IgnoreCase);

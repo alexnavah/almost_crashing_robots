@@ -81,7 +81,7 @@ word "LOST" should be printed after the position and orientation.
 ```
 1 1 E
 3 3 N LOST
-2 3 S
+4 2 N
 ```
 
 # Possible improvements to be done
@@ -118,6 +118,20 @@ namespace Domain.Models
             
             HandleNextTileStatus(tileStatus, map, robot, nextCoordinates);
         }
+    }
+}
+```
+
+You also need to add to its enum type and extension class
+
+```csharp
+namespace Domain.Models
+{
+    public enum RobotCommandType
+    {
+        Forward = 'F',
+        RotateLeft = 'L',
+        RotateRight = 'R'
     }
 }
 ```

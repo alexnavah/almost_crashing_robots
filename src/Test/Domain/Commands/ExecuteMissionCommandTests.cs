@@ -36,8 +36,7 @@ namespace Tests.Domain.Commands
 
         [Theory]
         [InlineData(0, 3, 3, OrientationType.North, true)]
-        [InlineData(1, 3, 3, OrientationType.North, false)]
-        [InlineData(2, 3, 3, OrientationType.North, false)]
+        [InlineData(1, 3, 2, OrientationType.North, false)]
         public void ShouldSuccessOnMissionExecutionGivenWithRobotsFollowingSamePath(int index, int x, int y, OrientationType orientation, bool isLost)
         {
             // Arrange

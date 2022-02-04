@@ -4,8 +4,10 @@ using Domain.Models.Extensions;
 
 namespace Domain.Commands
 {
+    /// <inheritdoc cref="IExecuteMissionCommand"/>
     public class ExecuteMissionCommand : IExecuteMissionCommand
     {
+        /// <inheritdoc cref="IExecuteMissionCommand.Execute(Mission)"/>
         public CommandResultOfT<Mission> Execute(Mission mission)
         {
             var commandResult = CommandResultOfT<Mission>.Create();

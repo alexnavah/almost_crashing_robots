@@ -19,6 +19,8 @@ namespace ConsoleApplication
 
             if (!inputValidationResult.Success)
             {
+                Console.WriteLine("Errors found in mission validation. Review before launch: \r\n");
+                Console.WriteLine(inputValidationResult.GetMessagesAsString());
                 return;
             }
 
