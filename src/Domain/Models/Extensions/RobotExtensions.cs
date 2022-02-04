@@ -51,5 +51,9 @@ namespace Domain.Models.Extensions
             return commandsQueue;
         }
 
+        public static string GetLostStatus(this Robot robot)
+        {
+            return robot.IsLost ? robot.LostSignal : string.Empty;
+        }
     }
 }

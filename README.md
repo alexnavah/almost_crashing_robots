@@ -3,6 +3,14 @@ Robots walking on a map based on instructiones given, but they might get lost...
 
 This is a code challenge based on the Martian Robots one.
 
+# Running instructions
+
+## Console application
+
+```
+$ dotnet run --project .\src\ConsoleApplication\ConsoleApplication.csproj -c Release
+```
+
 # The Problem
 
 The surface of Mars can be modelled by a rectangular grid around which robots are

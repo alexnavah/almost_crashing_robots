@@ -1,4 +1,6 @@
-﻿namespace Domain.Models.Extensions
+﻿using System.Text;
+
+namespace Domain.Models.Extensions
 {
     public static class MissionExtensions
     {
@@ -17,6 +19,17 @@
             }
         }
 
+        public static string GetWrittenMissionReport(this Mission mission)
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("Sample output");
+            foreach (var robot in mission.Robots)
+            {
+                stringBuilder.AppendLine($"{robot.Coordinates.X} {robot.Coordinates.Y} {robot.Orientation.GetKeyCode()} {robot.GetLostStatus()}");
+            }
+
+            return stringBuilder.ToString();
+        }
         private static void HandleLostState(Map map, Robot robot)
         {
             robot.FlagAsLost();

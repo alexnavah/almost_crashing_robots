@@ -1,18 +1,32 @@
-﻿namespace ConsoleApplication
+﻿using Domain.Commands;
+using Domain.Helpers;
+using Domain.Models.Extensions;
+using System;
+
+namespace ConsoleApplication
 {
     class Program
     {
         static void Main(string[] args)
         {
-            // take input
+            var sampleInput = "5 3\r\n1 1 E\r\nRFRFRFRF\r\n3 2 N\r\nFRRFLLFFRRFLL\r\n0 3 W\r\nLLFFFRFLFL";
 
-            // parse input
+            Console.WriteLine($"Sample input\r\n{sampleInput}\r\n");
 
-            // validate input
+            var parsedInput = InputParser.ParseInput(sampleInput);
 
-            // run each robot
+            var inputValidationResult = new ValidateMissionCommand().Execute(parsedInput);
 
-            // print result
+            if (!inputValidationResult.Success)
+            {
+                return;
+            }
+
+            var executeMissionResult = new ExecuteMissionCommand().Execute(parsedInput);
+
+            var writtenMissionReport = executeMissionResult.Result.GetWrittenMissionReport();
+
+            Console.WriteLine(writtenMissionReport);
         }
     }
 }

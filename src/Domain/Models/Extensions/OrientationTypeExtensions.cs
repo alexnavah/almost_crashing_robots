@@ -13,6 +13,15 @@ namespace Domain.Models.Extensions
             "W" => OrientationType.West,
             _ => throw new ArgumentException($"Valid orientations are N S E W"),
         };
+        
+        public static string GetKeyCode(this OrientationType type) => type switch
+        {
+            OrientationType.North => "N",
+            OrientationType.South => "S",
+            OrientationType.East => "E",
+            OrientationType.West => "W",
+            _ => throw new ArgumentException($"Valid orientations are N S E W"),
+        };
 
         public static OrientationType RotateCounterclockwise(this OrientationType orientationType)
         {
