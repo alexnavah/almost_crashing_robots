@@ -4,14 +4,14 @@ using Domain.Models;
 
 namespace Domain.Commands
 {
-    public class ValidateMissionRulesCommand : IValidateMissionRulesCommand
+    public class ValidateMissionCommand : IValidateMissionCommand
     {
-        public ValidateMissionRulesCommand()
+        public ValidateMissionCommand()
         {
 
         }
 
-        public CommandResult Execute(Mission map)
+        public CommandResult Execute(Mission mission)
         {
             var commandResult = CommandResult.Create();
             var validationResult = ValidationResult.Create();
@@ -19,7 +19,7 @@ namespace Domain.Commands
 
             foreach (var rule in rules)
             {
-                rule.Run(map, validationResult);
+                rule.Run(mission, validationResult);
             }
 
             commandResult.AddMessages(validationResult.Messages);

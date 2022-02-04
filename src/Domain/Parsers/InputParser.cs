@@ -15,20 +15,20 @@ namespace Domain.Helpers
 
         public static Mission ParseInput(string input)
         {
-            var gridMatch = Regex.Match(input, GetInputParseRegexForGridInstructions(), RegexOptions.IgnoreCase);
+            var mapMatch = Regex.Match(input, GetInputParseRegexForMapInstructions(), RegexOptions.IgnoreCase);
             var robotMatches = Regex.Matches(input, GetInputParseRegexForRobotInstructions(), RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
-            var grid = HandleGridMatch(gridMatch);
+            var map = HandleMapMatch(mapMatch);
             var robots = HandleRobotsMatches(robotMatches);
             
-            return Mission.Create(grid, robots);
+            return Mission.Create(map, robots);
         }
 
-        private static Map HandleGridMatch(Match match)
+        private static Map HandleMapMatch(Match match)
         {
             if (!match.Success || match.Groups.Count != 3)
             {
-                throw new ArgumentException("Grid input coordinates should go by {X value} {Y value} format");
+                throw new ArgumentException("Map input coordinates should go by {X value} {Y value} format");
             }
 
             return Map.Create(match.Groups[CoordinateXIndex].Value.AsInteger(), match.Groups[CoordinateYIndex].Value.AsInteger());
@@ -67,7 +67,7 @@ namespace Domain.Helpers
             return @"(\d*)\s(\d*)\s([NSEW])\s+([RFL]+)";
         }
 
-        private static string GetInputParseRegexForGridInstructions()
+        private static string GetInputParseRegexForMapInstructions()
         {
             // \d matches a digit(equivalent to[0 - 9])
             // * matches the previous token between zero and unlimited times, as many times as possible, giving back as needed (greedy)

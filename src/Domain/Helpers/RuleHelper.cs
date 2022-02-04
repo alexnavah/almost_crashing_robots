@@ -6,13 +6,13 @@ namespace Domain.Helpers
 {
     public static class RuleHelper
     {
-        public static IEnumerable<IValidationRule> GetValidationRules()
+        public static IEnumerable<IValidation> GetValidationRules()
         {
-            return new List<IValidationRule>
+            return new List<IValidation>
             {
-                MapSizeRule.Instance,
-                MaxRobotInstructionsRule.Instance,
-                RobotInstructionRule.Instance
+                MapSizeValidation.Instance,
+                MaxRobotInstructionsValidation.Instance,
+                RobotInstructionValidation.Instance
             };
         }
     }

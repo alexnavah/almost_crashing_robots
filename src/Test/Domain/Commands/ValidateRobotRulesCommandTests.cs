@@ -7,12 +7,12 @@ namespace Test.Domain.Commands
 {
     public class ValidateRobotRulesCommandTests
     {
-        private readonly ValidateMissionRulesCommand _validateMissionRulesCommand;
+        private readonly ValidateMissionCommand _validateMissionRulesCommand;
 
         public ValidateRobotRulesCommandTests()
         {
             // TODO: Dependency injection
-            _validateMissionRulesCommand = new ValidateMissionRulesCommand();
+            _validateMissionRulesCommand = new ValidateMissionCommand();
         }
 
         [Fact]
@@ -51,6 +51,23 @@ namespace Test.Domain.Commands
             // Arrange
             var mission = TestDataHelper.GivenValidMissionConfiguration();
             mission.Robots.First().Commands = new string(instruction, times);
+
+            // Act
+            var commandResult = _validateMissionRulesCommand.Execute(mission);
+
+            // Assert
+            Assert.False(commandResult.Success);
+        }
+
+        [Theory]
+        [InlineData("RAL", 0)]
+        [InlineData("FL@", 1)]
+        [InlineData("L?<", 2)]
+        public void ShouldFailOnRobotCommandNotFound(string instructions, int robotNumber)
+        {
+            // Arrange
+            var mission = TestDataHelper.GivenValidMissionConfiguration();
+            mission.Robots.ElementAt(robotNumber).Commands = instructions;
 
             // Act
             var commandResult = _validateMissionRulesCommand.Execute(mission);

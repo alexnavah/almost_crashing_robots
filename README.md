@@ -1,5 +1,5 @@
 ﻿# almost_crashing_robots
-Robots walking on a grid based on instructiones given, but they might get lost... :'(
+Robots walking on a map based on instructiones given, but they might get lost... :'(
 
 This is a code challenge based on the Martian Robots one.
 
@@ -79,7 +79,7 @@ word "LOST" should be printed after the position and orientation.
 # Possible improvements to be done
 
 * Move backwards
-* Return back in time on going out of grid
+* Return back in time on going out of map
 * Configurable max map size and commands length
 * Avoid robot move validations saving already explored tiles
 * Validation of robot commands input 'FRFRFRF'
@@ -103,12 +103,12 @@ namespace Domain.Models
 
         public static MoveBackwardAction Instance => Current ??= new MoveBackwardAction();
 
-        public override void Execute(Grid grid, Robot robot)
+        public override void Execute(Map map, Robot robot)
         {
             var nextCoordinates = robot.GetBackwardCoordinates();
-            var tileStatus = grid.CheckTileStatus(nextCoordinates);
+            var tileStatus = map.CheckTileStatus(nextCoordinates);
             
-            HandleNextTileStatus(tileStatus, grid, robot, nextCoordinates);
+            HandleNextTileStatus(tileStatus, map, robot, nextCoordinates);
         }
     }
 }
