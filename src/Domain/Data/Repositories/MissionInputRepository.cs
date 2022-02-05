@@ -1,10 +1,11 @@
 ﻿using Domain.Contexts;
+using Domain.Data.Repositories.Interfaces;
 using Domain.Entities;
 using System;
 
 namespace Domain.Data.Repositories
 {
-    public class MissionInputRepository
+    public class MissionInputRepository : IMissionInputRepository
     {
         private readonly CoreContext _coreContext;
 
@@ -13,7 +14,7 @@ namespace Domain.Data.Repositories
             _coreContext = coreContext;
         }
 
-        public MissionInput Get(Guid id)
+        public MissionInput Find(Guid id)
         {
             return _coreContext.MissionInputs.Find(id);
         }
@@ -24,6 +25,14 @@ namespace Domain.Data.Repositories
             _coreContext.SaveChanges();
 
             return input;
+        }
+
+        public void UpdateOutput(Guid inputId, Guid outputId)
+        {
+            var input = Find(inputId);
+            input.OutputId = outputId;
+
+            _coreContext.SaveChanges();
         }
     }
 }

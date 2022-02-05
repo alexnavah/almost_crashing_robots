@@ -30,9 +30,17 @@ namespace Domain.Models.Extensions
         {
             map.LostRobotVectors.Add(vector);
         }
-        public static void AddSafetile(this Map map, Coordinates coordinates)
+        public static void AddExploredTile(this Map map, Coordinates coordinates)
         {
-            map.SafeTiles.Add(coordinates);
+            if (!map.ExploredTiles.Contains(coordinates))
+            {
+                map.ExploredTiles.Add(coordinates);
+            }
+        }
+
+        public static int GetNumberOfTiles(this Map map)
+        {
+            return (map.TopRight.X + 1) * (map.TopRight.Y + 1);
         }
     }
 }

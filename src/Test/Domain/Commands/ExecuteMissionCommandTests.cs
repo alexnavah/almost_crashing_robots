@@ -8,7 +8,7 @@ namespace Tests.Domain.Commands
 {
     public class ExecuteMissionCommandTests
     {
-        private ExecuteMissionCommand _executeMissionCommand;
+        private readonly ExecuteMissionCommand _executeMissionCommand;
 
         public ExecuteMissionCommandTests()
         {

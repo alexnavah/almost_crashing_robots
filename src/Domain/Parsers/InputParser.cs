@@ -69,6 +69,7 @@ namespace Domain.Helpers
             // [NSEW] matches a single character in the list NSEW
             // [RFL] matches a single character in the list RFL(case sensitive)
 
+            //TODO: FIX adding a character out of the given, breaks regex
             return @"(\d*)\s(\d*)\s([NSEW])\s+([RFL]+)";
         }
 
@@ -79,7 +80,7 @@ namespace Domain.Helpers
             // \s matches any whitespace character(equivalent to[\r\n\t\f\v])
             // + matches the previous token between one and unlimited times, as many times as possible, giving back as needed (greedy)
 
-            return @"(\d*)\s(\d*)\r\n";
+            return @"(\d*)\s(\d*)\s";
         }
     }
 }

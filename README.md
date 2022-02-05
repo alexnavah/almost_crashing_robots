@@ -11,6 +11,26 @@ This is a code challenge based on the Martian Robots one.
 $ dotnet run --project .\src\ConsoleApplication\ConsoleApplication.csproj -c Release
 ```
 
+## REST Api application (docker)
+```
+In .\src\ApiApplication folder:
+$ dotnet publish
+$ docker build -t apiapplication .
+$ docker run -p 8080:80 apiapplication
+```
+
+# Testing
+
+The solution contains unit tests.
+Test libraries used:
+- [xUnit](https://xunit.net/)
+
+To run the test you can use the following command:
+
+```
+$ dotnet test almost_crashing_robots.sln -c Release
+```
+
 # The Problem
 
 The surface of Mars can be modelled by a rectangular grid around which robots are
@@ -88,7 +108,6 @@ word "LOST" should be printed after the position and orientation.
 
 * Return back in time on going out of map
 * Configurable max map size and commands length
-* Avoid robot move validations saving already explored tiles
 * Better command result messages
 
 # How to extend robot instructions
@@ -133,16 +152,4 @@ namespace Domain.Models
         Backward = 'B'
     }
 }
-```
-
-# Testing
-
-The solution contains unit tests.
-Test libraries used:
-- [xUnit](https://xunit.net/)
-
-To run the test you can use the following command:
-
-```
-$ dotnet test almost_crashing_robots.sln -c Release
 ```
