@@ -44,7 +44,7 @@ namespace Domain.Services
             {
                 Id = Guid.NewGuid(),
                 Name = name,
-                RawValue = input
+                RawString = input
             };
 
             _missionInputRepository.Save(missionInput);
@@ -57,7 +57,7 @@ namespace Domain.Services
             var missionOutput = new MissionOutput
             {
                 Id = Guid.NewGuid(),
-                RawValue = output,
+                RawString = output,
                 InputId = inputId,
                 SuccessPercentage = mission.GetSuccessPercentage(),
                 ExploredPercentage = mission.GetExploredPercentage()

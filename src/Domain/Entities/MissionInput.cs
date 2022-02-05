@@ -8,7 +8,7 @@ namespace Domain.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string RawValue { get; set; }
+        public string RawString { get; set; }
         public Guid? OutputId { get; set; }
         public MissionOutput Output { get; set; }
     }

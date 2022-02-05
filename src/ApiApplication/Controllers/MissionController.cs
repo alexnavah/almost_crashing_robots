@@ -1,6 +1,7 @@
 ﻿using Domain.Helpers;
 using Domain.Models;
 using Domain.Models.Extensions;
+using Domain.Queries.Interfaces;
 using Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,13 +15,15 @@ namespace ApiApplication.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IMissionService _missionService;
+        private readonly IGetStatisticsQuery _getStatisticsQuery;
         private readonly bool _saveMissionInputOutput;
 
-        public MissionController(IConfiguration configuration, IMissionService missionService)
+        public MissionController(IConfiguration configuration, IMissionService missionService, IGetStatisticsQuery getStatisticsQuery)
         {
             _configuration = configuration;
             _missionService = missionService;
-
+            _getStatisticsQuery = getStatisticsQuery;
+            
             bool.TryParse(_configuration.GetSection("AppSettings").GetSection("SaveMissionInputOutput").Value, out _saveMissionInputOutput);
         }
 
@@ -31,9 +34,11 @@ namespace ApiApplication.Controllers
         }
 
         [HttpGet("stats/{id}")]
-        public int Statistics(int id)
+        public ActionResult<MissionResult> Statistics(Guid id)
         {
-            return id;
+            var stats = _getStatisticsQuery.Execute(id);
+
+            return Ok(stats.Result);
         }
 
         [HttpPost]

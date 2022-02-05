@@ -7,7 +7,7 @@ namespace Domain.Entities
     public class MissionOutput
     {
         public Guid Id { get; set; }
-        public string RawValue { get; set; }
+        public string RawString { get; set; }
         public decimal ExploredPercentage { get; set; }
         public decimal SuccessPercentage { get; set; }
         public Guid? InputId { get; set; }
