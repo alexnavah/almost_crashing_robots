@@ -1,7 +1,6 @@
 ﻿using Domain.Contexts;
 using Domain.Data.Repositories.Interfaces;
 using Domain.Entities;
-using System;
 
 namespace Domain.Data.Repositories
 {
@@ -14,7 +13,7 @@ namespace Domain.Data.Repositories
             _coreContext = coreContext;
         }
 
-        public MissionOutput Find(Guid id)
+        public MissionOutput Find(int id)
         {
             return _coreContext.MissionOutputs.Find(id);
         }

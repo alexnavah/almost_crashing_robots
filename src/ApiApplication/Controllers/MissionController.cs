@@ -1,11 +1,11 @@
-﻿using Domain.Helpers;
+﻿using Domain.Commands.Interfaces;
+using Domain.Helpers;
 using Domain.Models;
 using Domain.Models.Extensions;
 using Domain.Queries.Interfaces;
 using Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
 
 namespace ApiApplication.Controllers
 {
@@ -16,25 +16,21 @@ namespace ApiApplication.Controllers
         private readonly IConfiguration _configuration;
         private readonly IMissionService _missionService;
         private readonly IGetStatisticsQuery _getStatisticsQuery;
+        private readonly ISaveMissionResultCommand _saveMissionResultCommand;
         private readonly bool _saveMissionInputOutput;
 
-        public MissionController(IConfiguration configuration, IMissionService missionService, IGetStatisticsQuery getStatisticsQuery)
+        public MissionController(IConfiguration configuration, IMissionService missionService, IGetStatisticsQuery getStatisticsQuery, 
+            ISaveMissionResultCommand saveMissionResultCommand)
         {
             _configuration = configuration;
             _missionService = missionService;
             _getStatisticsQuery = getStatisticsQuery;
-            
+            _saveMissionResultCommand = saveMissionResultCommand;
             bool.TryParse(_configuration.GetSection("AppSettings").GetSection("SaveMissionInputOutput").Value, out _saveMissionInputOutput);
         }
 
-        [HttpGet("stats")]
-        public void Statistics()
-        {
-
-        }
-
         [HttpGet("stats/{id}")]
-        public ActionResult<MissionResult> Statistics(Guid id)
+        public ActionResult<MissionResult> Statistics(int id)
         {
             var stats = _getStatisticsQuery.Execute(id);
 
@@ -56,9 +52,9 @@ namespace ApiApplication.Controllers
 
         [HttpPost]
         [Route("Launch")]
-        public ActionResult<string> Launch([FromForm] MissionParameters parameters)
+        public ActionResult<string> Launch([FromForm] MissionParameters missionParameters)
         {
-            var missionInput = InputParser.ParseInput(parameters.Input);
+            var missionInput = InputParser.ParseInput(missionParameters.Input);
             var missionValidation = _missionService.ValidateMission(missionInput);
 
             if (!missionValidation.Success)
@@ -66,14 +62,11 @@ namespace ApiApplication.Controllers
                 return BadRequest(missionValidation.GetMessagesAsString());
             }
 
-            var inputId = _saveMissionInputOutput ? _missionService.SaveMissionInput(parameters.Input, parameters.Name) : Guid.Empty;
-
             var missionResult = _missionService.LaunchMission(missionInput);
 
             if (_saveMissionInputOutput)
             {
-                var outputId = _missionService.SaveMissionOutput(missionResult.Result.GetRawOutput(), inputId, missionResult.Result);
-                _missionService.SetMissionOutput(inputId, outputId);
+                _saveMissionResultCommand.Execute(missionResult.Result, missionParameters);
             }
 
             return Ok(missionResult.Result.GetWrittenMissionReport());

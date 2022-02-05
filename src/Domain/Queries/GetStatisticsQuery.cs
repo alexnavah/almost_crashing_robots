@@ -1,7 +1,6 @@
 ﻿using Domain.Data.Repositories.Interfaces;
 using Domain.Models;
 using Domain.Queries.Interfaces;
-using System;
 
 namespace Domain.Queries
 {
@@ -14,7 +13,7 @@ namespace Domain.Queries
             _missionInputRepository = missionInputRepository;
         }
 
-        public QueryResultOfT<MissionResult> Execute(Guid inputId)
+        public QueryResultOfT<MissionResult> Execute(int inputId)
         {
             var result = QueryResultOfT<MissionResult>.Create();
             var input = _missionInputRepository.Find(inputId);

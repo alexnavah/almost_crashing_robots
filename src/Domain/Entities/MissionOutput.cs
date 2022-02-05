@@ -1,16 +1,15 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
-    [Table("MissionOutput", Schema = "Space")]
+    [Table("MissionOutput")]
     public class MissionOutput
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string RawString { get; set; }
         public decimal ExploredPercentage { get; set; }
         public decimal SuccessPercentage { get; set; }
-        public Guid? InputId { get; set; }
+        public int InputId { get; set; }
         public MissionInput Input { get; set; }
     }
 }
