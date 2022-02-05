@@ -12,11 +12,28 @@ $ dotnet run --project .\src\ConsoleApplication\ConsoleApplication.csproj -c Rel
 ```
 
 ## REST Api application (docker)
+
 ```
 In .\src\ApiApplication folder:
 $ dotnet publish
 $ docker build -t apiapplication .
 $ docker run -p 8080:80 apiapplication
+```
+
+### API Request (use curl, Postman, whatever...)
+
+```
+# POST
+$ curl http://localhost:8080/api/mission/launch/givensample
+```
+
+``` 
+# POST
+# Form parameters:      
+# name - required - Name of the mission
+# input - required - Input of the mission with the format given
+$ curl http://localhost:8080/api/mission/launch
+
 ```
 
 # Testing
