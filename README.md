@@ -13,8 +13,12 @@ $ dotnet run --project .\src\ConsoleApplication\ConsoleApplication.csproj -c Rel
 
 ## REST Api application (docker)
 
+- Install Docker
+
+[https://www.docker.com/docker-community](https://www.docker.com/docker-community)
+
+- Run the following commands in .\src\ApiApplication folder:
 ```
-In .\src\ApiApplication folder:
 $ dotnet publish
 $ docker build -t apiapplication .
 $ docker run -p 8080:80 apiapplication
