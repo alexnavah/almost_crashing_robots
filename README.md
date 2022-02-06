@@ -24,12 +24,12 @@ $ docker run -p 8080:80 apiapplication
 
 Run code challenge sample
 ```http
-POST http://localhost:8080/api/mission/launch/givensample
+POST /api/mission/launch/givensample
 ```
 
 Run custom input
 ```http
-POST http://localhost:8080/api/mission/launch
+POST /api/mission/launch
 ```
 
 | Parameter | Type     | Description                       |
