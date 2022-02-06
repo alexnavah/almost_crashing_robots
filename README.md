@@ -26,12 +26,12 @@ $ docker run -p 8080:80 apiapplication
 
 ### API Request (use curl, Postman, whatever...)
 
-Run code challenge sample
+- Run code challenge sample
 ```http
 POST /api/mission/launch/givensample
 ```
 
-Run custom input
+- Run custom input
 ```http
 POST /api/mission/launch
 ```
