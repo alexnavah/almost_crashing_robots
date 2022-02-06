@@ -27,6 +27,7 @@ Run code challenge sample
 POST http://localhost:8080/api/mission/launch/givensample
 ```
 
+Run custom input
 ```http
 POST http://localhost:8080/api/mission/launch
 ```
