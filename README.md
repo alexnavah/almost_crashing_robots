@@ -22,19 +22,19 @@ $ docker run -p 8080:80 apiapplication
 
 ### API Request (use curl, Postman, whatever...)
 
-```
-# POST
-$ curl http://localhost:8080/api/mission/launch/givensample
+Run code challenge sample
+```http
+POST http://localhost:8080/api/mission/launch/givensample
 ```
 
-``` 
-# POST
-# Form parameters:      
-# name - required - Name of the mission
-# input - required - Input of the mission with the format given
-$ curl http://localhost:8080/api/mission/launch
-
+```http
+POST http://localhost:8080/api/mission/launch
 ```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `name`      | `string` | **Required**. Name of the mission |
+| `input`      | `string` | **Required**. Input of the mission with the given format |
 
 # Testing
 
