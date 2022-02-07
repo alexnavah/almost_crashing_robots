@@ -3,6 +3,8 @@ Robots walking on a map based on instructiones given, but they might get lost...
 
 This is a code challenge based on the Martian Robots one.
 
+I'm doing a little of overengineer to show some programming patterns such as `command/query`.
+
 # Running instructions
 
 ## Console application
